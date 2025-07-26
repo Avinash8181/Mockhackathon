@@ -63,7 +63,7 @@ class CustomerServiceImplTest {
         when(customerRepository.findAll()).thenThrow(new RuntimeException("DB error"));
 
         RuntimeException ex = assertThrows(RuntimeException.class, () -> customerService.getAllCustomers());
-        assertEquals("Unable to fetch customers", ex.getMessage());
+        assertEquals("Unable to fetch customers. Please try again later.", ex.getMessage());
     }
 
     // ✅ Positive Test: Get customer by ID
@@ -105,8 +105,9 @@ class CustomerServiceImplTest {
 
         RuntimeException ex = assertThrows(RuntimeException.class,
                 () -> customerService.createCustomer(customer));
-        assertEquals("Unable to create customer", ex.getMessage());
+        assertEquals("Customer already exists or input data is invalid.", ex.getMessage());
     }
+
 
     // ✅ Positive Test: Update customer
     @Test

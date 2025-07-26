@@ -27,7 +27,7 @@ public class CustomerServiceImpl implements CustomerService {
             return customerRepository.findAll();
         } catch (Exception e) {
             logger.error("Error fetching customers: {}", e.getMessage(), e);
-            throw new RuntimeException("Unable to fetch customers");
+            throw new RuntimeException("Unable to fetch customers. Please try again later.");
         }
     }
 
@@ -42,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw e;
         } catch (Exception e) {
             logger.error("Error fetching customer: {}", e.getMessage(), e);
-            throw new RuntimeException("Unable to fetch customer");
+            throw new RuntimeException("Error occurred while retrieving customer with ID: " + id);
         }
     }
 
@@ -53,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
             return customerRepository.save(customer);
         } catch (Exception e) {
             logger.error("Error creating customer: {}", e.getMessage(), e);
-            throw new RuntimeException("Unable to create customer");
+            throw new RuntimeException("Customer already exists or input data is invalid.");
         }
     }
 
@@ -71,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw e;
         } catch (Exception e) {
             logger.error("Error updating customer: {}", e.getMessage(), e);
-            throw new RuntimeException("Unable to update customer");
+            throw new RuntimeException("Unable to update customer. Please ensure the data is correct.");
         }
     }
 
@@ -88,7 +88,8 @@ public class CustomerServiceImpl implements CustomerService {
             throw e;
         } catch (Exception e) {
             logger.error("Error deleting customer: {}", e.getMessage(), e);
-            throw new RuntimeException("Unable to delete customer");
+            throw new RuntimeException("Unable to delete customer details not found.");
         }
     }
+
 }
